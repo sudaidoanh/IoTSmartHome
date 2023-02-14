@@ -1,0 +1,12 @@
+.humidity {
+    margin-top: 7rem;
+}
+
+.humidity__container h4 {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.status__humidity {
+    margin-top: 1rem;
+}

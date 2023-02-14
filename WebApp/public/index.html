@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ------------ION ICON ----------- -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/b0c50d5f49.js" crossorigin="anonymous"></script>
+
+
+    <!-- --------GOOGLE FONTS---------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ---------LINK CSS----- -->
+    <link rel="stylesheet" href="./css/style.css">
+    <title>SmartHome</title>
+</head>
+
+<body>
+    <script>
+        logout = () => {};
+    </script>
+    <script type="module">
+        if(window.sessionStorage.getItem("user") != null) {
+            // window.location.href = "/";
+            document.getElementById("userLogin").style.display="contents";
+            document.getElementById("displayLoginLink").style.display="none";
+            document.getElementById("username").innerHTML = window.sessionStorage.getItem("user");
+
+        }
+        else {
+            document.getElementById("userLogin").style.display="none";
+            document.getElementById("displayLoginLink").style.display="block";
+            
+        }
+
+        logout = () => {
+            sessionStorage.clear();
+            location.reload();
+        }
+    </script>
+    <nav>
+        <div class="nav__container">
+            <a href="index.html">
+                <h4>SMARTHOME</h4>
+            </a>
+            <ul class="nav__menu">
+                <li><a href="index">Home</a></li>
+                <li><a href="control">Control Leds</a></li>
+                <li><a href="humidity_temperature">Humidity and Temperature data</a></li>
+                <li><a href="gas">Gas data</a></li>
+            </ul>
+
+            <div class="nav__login">
+                <div id="userLogin">
+                    <div class="avata">
+                        <img src="img/10.jpg">
+                    </div>
+                    <div class="title__login">
+                        <div class="title" style="font-size: 1.2rem; ">
+                            <h5 id="username"></h5>
+                        </div>
+                        <div class="sub__title" style="font-size: 0.9rem; opacity: 0.5; font-weight:normal; ">
+                            Administrator
+                        </div>
+                    </div>
+                    <div class="dropdown-content">
+                        <button style="    display: inline-block;
+                        color: #252537;
+                        width: 280px;
+                        height: 50px;
+                        padding: 0 20px;
+                        background: #fff;
+                        border-radius: 5px;
+                        outline: none;
+                        border: none;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: all 0.2s linear;
+                        margin: 7% auto;
+                        letter-spacing: 0.05em;" onclick="logout()">Log out</button>
+                    </div>
+                </div>
+                <a href="login" id="displayLoginLink">
+                    <h4>Login</h4>
+                </a>
+                <button class="btn__menu">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="btn-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container header__container">
+            <div class="header__left">
+                <h1>With all the world’s knowledge in our pockets, we are living in a world that is already smart. </h1>
+                
+
+
+                <p>But the dream of a true smart home remains unfulfilled, partly due to the high level of fragmentation in the industry, leading to countless offerings that don’t work together. Intel is taking a radically different approach based on proactive research into ways to increase smart home adoption. Our multi-tenant, smart home platform reference design is open, flexible, scalable, secure, and one on which any company or service provider can offer solutions, regardless of the industry to which it belongs.</p>
+
+                <a href="https://console.firebase.google.com/u/1/project/graduationproject-391b2/database/graduationproject-391b2-default-rtdb/data" class="btn btn-primary">Get Cloud</a>
+            </div>
+            <div class="header__right">
+                <img src="./img/smarthome.jpg" alt="">
+            </div>
+        </div>
+    </header>
+    <!-- -----------LINK JAVASCRIPT----- -->
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

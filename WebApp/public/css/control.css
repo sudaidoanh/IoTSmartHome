@@ -1,0 +1,177 @@
+:root {
+    --color-primary: #6c63ff;
+    --color-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-bg: #1f2641;
+    --color-bg1: #2e3267;
+    --color-bg2: #424890;
+    --container-width-lg: 80%;
+    --container-width-md: 90%;
+    --container-width-sm: 94%;
+    --transition: all 400ms ease;
+}
+
+.controllLed {
+    width: 100%;
+    margin-top: 8rem;
+}
+
+.led__top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.room__content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 140px;
+    background-color: rgb(192, 192, 192);
+    padding: 1rem;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    position: relative;
+    gap: 5rem;
+}
+
+.led__room{
+    width: 48%;
+}
+
+.room__content:nth-child(2) {
+    background-color: rgb(185, 211, 238);
+}
+
+
+/* .button {
+    display: flex;
+} */
+
+.room__title button {
+    background: none;
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+.room__title h4 {
+    margin-bottom: 10px;
+}
+
+.room__title .btnOff {
+    border: 1px solid rgb(223, 71, 71);
+    color: rgb(223, 71, 71);
+    padding: 15px 10px
+}
+
+.room__title .btnOn {
+    border: 1px solid var(--color-primary);
+    padding: 15px;
+}
+
+.room__title .btnOn:hover {
+    background: var(--color-primary);
+    color: white;
+    cursor: pointer;
+}
+
+.room__title .btnOff:hover {
+    background: rgb(223, 71, 71);
+    color: white;
+    cursor: pointer;
+}
+
+.led__img img {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 25%;
+    bottom: 15%;
+}
+
+.fan__img img {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    right: 15%;
+    bottom: 15%;
+}
+
+.control_led {
+    float: left;
+}
+
+.control_fan {
+    width: 100%;
+    margin-top: 2.4rem;
+    margin-left: 50%;
+}
+
+
+/* ----------------------LED MIDDLE------------- */
+
+.led__middle {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem
+}
+
+.led__middle .btnOn {
+    background: white;
+    border: none;
+    color: black;
+}
+
+.led__middle .btnOff {
+    background: black;
+    color: white;
+    border: none;
+}
+
+
+/* ======================STATUS===================== */
+
+.status__led {
+    margin-top: 4rem;
+}
+
+table,
+th,
+td {
+    border: 1px solid #868585;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    font-size: 1rem;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 10px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
+}
+
+table tr:nth-child(1) {
+    background-color: skyblue;
+}

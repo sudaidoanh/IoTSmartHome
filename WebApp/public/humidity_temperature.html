@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ------------ION ICON ----------- -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- --------GOOGLE FONTS---------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ----------------------LINK CSS------------ -->
+    <link rel="stylesheet" href="css/humidity_tempareture.css">
+    <link rel="stylesheet" href="css/control.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Humidity and Tempareture</title>
+</head>
+
+<body>
+    <script>
+        logout = () => {};
+    </script>
+    <script type="module">
+        if(window.sessionStorage.getItem("user") != null) {
+            // window.location.href = "/";
+            document.getElementById("userLogin").style.display="contents";
+            document.getElementById("displayLoginLink").style.display="none";
+            document.getElementById("username").innerHTML = window.sessionStorage.getItem("user");
+
+        }
+        else {
+            window.location.href = "login";
+            document.getElementById("userLogin").style.display="none";
+            document.getElementById("displayLoginLink").style.display="block";
+            
+        }
+
+        logout = () => {
+            sessionStorage.clear();
+            location.reload();
+        }
+        // Import the functions you need from the SDKs you need
+
+
+    </script>
+    <!-- --------------NAV MENU------------ -->
+    <nav>
+        <div class=" nav__container">
+            <a href="index">
+                <h4>SMARTHOME</h4>
+            </a>
+            <ul class="nav__menu">
+                <li><a href="index">Home</a></li>
+                <li><a href="control">Control Leds</a></li>
+                <li><a href="humidity_temperature">Humidity and Temperature data</a></li>
+                <li><a href="gas">Gas data</a></li>
+            </ul>
+
+            <div class="nav__login">
+                <div id="userLogin">
+                    <div class="avata">
+                        <img src="img/10.jpg">
+                    </div>
+                    <div class="title__login">
+                        <div class="title" style="font-size: 1.2rem; ">
+                            <h5 id="username"></h5>
+                        </div>
+                        <div class="sub__title" style="font-size: 0.9rem; opacity: 0.5; font-weight:normal; ">
+                            Administrator
+                        </div>
+                    </div>
+                    <div class="dropdown-content">
+                        <button style="    display: inline-block;
+                        color: #252537;
+                        width: 280px;
+                        height: 50px;
+                        padding: 0 20px;
+                        background: #fff;
+                        border-radius: 5px;
+                        outline: none;
+                        border: none;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: all 0.2s linear;
+                        margin: 7% auto;
+                        letter-spacing: 0.05em;" onclick="logout()">Log out</button>
+                    </div>
+                </div>
+                <a href="login" id="displayLoginLink">
+                    <h4>Login</h4>
+                </a>
+                <button class="btn__menu">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="btn-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="humidity" style="background-image: url(img/home.png); height: 400px;">
+        <div class="humidity__container container">
+            <ul>
+                <li><a href="/humi_temp/livingroom"><h4 style="color: blue; font-size: 25px;background-color: wheat;">Living Room</h4></a></li>
+                <li><a href="/humi_temp/kitchen"><h4 style="color: blue; font-size: 25px;background-color: wheat;">Kitchen</h4></a></li>
+                <li><a href="/humi_temp/bedroom"><h4 style="color: blue; font-size: 25px;background-color: wheat;">Bedroom</h4></a></li>
+            </ul>
+        </div>
+    </section>
+
+
+    <!-- ---------------SCRIPT------------ -->
+    <script src="js/index.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</body>
+
+</html>

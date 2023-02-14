@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ------------ION ICON ----------- -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/b0c50d5f49.js" crossorigin="anonymous"></script>
+
+
+    <!-- --------GOOGLE FONTS---------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+
+    <script>
+        login = () => {}
+        logout = () => {}
+    </script>
+
+    <script type="module">
+        if(window.sessionStorage.getItem("user") != null) {
+            window.location.href = "/";
+            document.getElementById("userLogin").style.display="contents";
+            document.getElementById("displayLoginLink").style.display="none";
+            
+
+        }
+        else {
+            document.getElementById("userLogin").style.display="none";
+            document.getElementById("displayLoginLink").style.display="block";
+            
+        }
+
+        logout = () => {
+            sessionStorage.clear();
+            location.reload();
+        }
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqkX6_iG60ijhP8ugTv9KTsE1n3Yj5b7A",
+            authDomain: "graduationproject-391b2.firebaseapp.com",
+            databaseURL: "https://graduationproject-391b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "graduationproject-391b2",
+            storageBucket: "graduationproject-391b2.appspot.com",
+            messagingSenderId: "938688812975",
+            appId: "1:938688812975:web:3f40409d583224003c815a",
+            measurementId: "G-434FM5Y3FN"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const database = getDatabase(app);
+
+        const dataRef = query(ref(database, 'users'));
+
+        // Initialize Firebase Authentication and get a reference to the service
+        login = () => {
+            let username = document.getElementById("txt-input").value;
+            let password = document.getElementById("pwd").value;
+            let checkExist = false;
+            onValue(dataRef, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    var childkey = childSnapshot.key;
+                    var childSnapshot = childSnapshot.val();
+                    var passdb = childSnapshot.password;
+                    if(childkey == username && passdb == password) {
+                        checkExist = true;
+                    }
+                });
+                console.log(checkExist);
+                if(checkExist) {
+                    window.sessionStorage.setItem("user", username);
+                    window.location.href = "/";
+                }
+                else {
+                    alert("Username or Password is incorrect");
+                }
+            });
+        }
+    </script>
+
+    <nav>
+        <div class="container nav__container">
+            <a href="index.html">
+                <h4>SMARTHOME</h4>
+            </a>
+            <ul class="nav__menu">
+                <li><a href="index">Home</a></li>
+                <li><a href="control">Control Leds</a></li>
+                <li><a href="humidity_temperature">Humidity and Temperature data</a></li>
+                <li><a href="gas">Gas data</a></li>
+            </ul>
+
+            <div class="nav__login">
+                <div id="userLogin">
+                    <div class="avata">
+                        <img src="img/10.jpg">
+                    </div>
+                    <div class="title__login">
+                        <div class="title" style="font-size: 1.2rem; ">
+                            <h5 id="username"></h5>
+                        </div>
+                        <div class="sub__title" style="font-size: 0.9rem; opacity: 0.5; font-weight:normal; ">
+                            Administrator
+                        </div>
+                    </div>
+                    <div class="dropdown-content">
+                        <button onclick="logout()">Log out</button>
+                    </div>
+                </div>
+
+                <a href="login" id="displayLoginLink">
+                    <h4>Login</h4>
+                </a>
+                <button class="btn__menu">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="btn-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+
+    </nav>
+    <div class="form__login">
+        <div class="overlay">
+            <!-- LOGN IN FORM by Omar Dsoky -->
+            <form method="post">
+                <!--   con = Container  for items in the form-->
+                <div class="con">
+                    <!--     Start  header Content  -->
+                    <header class="head-form">
+                        <h2>Log In</h2>
+                        <!--     A welcome message or an explanation of the login form -->
+                        <p>login here using your username and password</p>
+                    </header>
+                    <!--     End  header Content  -->
+                    <br>
+                    <div class="field-set">
+
+                        <!--   user name -->
+                        <span class="input-item">
+                       <i class="fa fa-user-circle"></i>
+                     </span>
+                        <!--   user name Input-->
+                        <input class="form-input" id="txt-input" type="text" placeholder="@UserName" required>
+
+                        <br>
+
+                        <!--   Password -->
+
+                        <span class="input-item"><i class="fa fa-key"></i></span>
+                        <!--   Password Input-->
+                        <input class="form-input" type="password" placeholder="Password" id="pwd" name="password" required>
+                        <br>
+                        <!--        buttons -->
+                        <!--      button LogIn -->
+                        <button type="button" class="log-in" onclick="login()"> Log In </button>
+
+                        <!-- <div class="form-group text-center">
+                            <button class="btn btn-block btn-social btn-google" id="btnGoogle" type="button"> <span class="fa fa-google"></span>Login with Google</button>
+                        </div> -->
+
+                    </div>
+
+                    <!--   other buttons -->
+                    <div class="other">
+                        <button class="btn submits frgt-pass">Forgot Password</button>
+                        <button class="btn submits sign-up"><a href="signUp">Sign Up <i class="fa fa-user-plus" aria-hidden="true"></i></a></button>
+                    </div>
+
+                    <!--   End Conrainer  -->
+                </div>
+
+                <!-- End Form -->
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="js/index.js"></script>
+
+    <!-- ----link copy--- -->
+    <!-- https://codepen.io/linux/pen/LLVaqx -->
+</body>
+
+</html>

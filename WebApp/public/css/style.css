@@ -1,0 +1,444 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #6c63ff;
+    --color-success: #00bf8e;
+    --color-warning: #f7c94b;
+    --color-danger: #f75842;
+    --color-bg: #1f2641;
+    --color-bg1: #2e3267;
+    --color-bg2: #424890;
+    --container-width-lg: 80%;
+    --container-width-md: 90%;
+    --container-width-sm: 94%;
+    --transition: all 400ms ease;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    padding: 1rem 2rem;
+    border: 1px solid transparent;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.btn-primary {
+    background: var(--color-danger);
+    color: var(--color-white);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: var(--color-white);
+    /* background: var(--color-bg); */
+    /* position: relative; */
+}
+
+.container {
+    width: var(--container-width-lg);
+    margin: 0 auto;
+}
+
+
+/* ==================NAV============= */
+
+.nav__container {
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 5rem;
+    z-index: 999;
+    right: 0;
+    left: 0;
+    background-color: white;
+}
+
+.nav__container h4 {
+    font-size: 1.6rem;
+    /* color: white; */
+    margin-left: 3rem;
+}
+
+.nav__login {
+    margin-right: 3rem;
+}
+
+.nav__menu {
+    display: flex;
+    gap: 2rem;
+    align-self: center;
+}
+
+.nav__menu a {
+    color: black;
+    font-size: 0.9rem;
+}
+
+.nav__menu a:hover {
+    color: var(--color-bg2);
+    transition: var(--transition);
+}
+
+.avata img {
+    width: 90px;
+    height: 60px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #80e2f6;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 6px 8px;
+    z-index: 1;
+}
+
+#userLogin:hover .dropdown-content{
+    display: block;
+}
+
+.nav__login {
+    display: flex;
+    gap: 2rem;
+    /* color: white; */
+    align-items: center;
+}
+
+.avata img {
+    border-radius: 50% !important;
+    vertical-align: middle;
+    border: none;
+    z-index: 0;
+}
+
+.btn__menu {
+    display: none;
+    background: none;
+}
+
+.btn-close {
+    display: none;
+    font-size: 1.8rem;
+    background: none;
+    color: var(--color-bg);
+}
+
+
+/* ----------------------HEADER------------ */
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 2rem;
+    z-index: -1000;
+}
+
+.header__left h1 {
+    font-size: 1.8rem;
+}
+
+.header__left p {
+    margin: 1rem 0;
+}
+
+.header__img {
+    box-shadow: 0 0 100px #1f2641;
+}
+
+.animate__fadeOutRight {
+    animation: fadeOutRight 0.5s ease-in;
+    -webkit-animation: fadeOutRight 0.5s ease-in;
+}
+
+@keyframes fadeOutRight {
+    0% {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0)
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0)
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+}
+
+.animate__fadeInRight {
+    animation: fadeInRight 0.5s ease-in;
+    -webkit-animation: fadeInRight 0.5s ease-in;
+}
+
+
+/* -----------------------responsive----------- */
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: var(--container-width-md);
+    }
+    /* .animate__fadeOutRight {
+        animation: fadeOutRight 0.5s ease-in;
+        -webkit-animation: fadeOutRight 0.5s ease-in;
+    }
+    @keyframes fadeOutRight {
+        0% {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0)
+        }
+    } */
+    /* @keyframes fadeInRight {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0)
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+    } */
+    .nav__menu {
+        flex-direction: column;
+        position: fixed;
+        top: 5rem;
+        right: -100%;
+        width: 18rem;
+        height: fit-content;
+        /* height: fit-content; */
+        background: #00577D;
+        gap: 0;
+        /* transform: translateX(-1000%); */
+        transition: var(--transition);
+        /* animation: fadeInRight 0.5s ease-in; */
+        /* display: none; */
+    }
+    .nav__container h4 {
+        font-size: 1.4rem;
+    }
+    .nav__menu li {
+        width: 100%;
+        height: 5rem;
+        text-align: center;
+        cursor: pointer;
+    }
+    .nav__menu li:hover {
+        background: #6BD7FE;
+        color: white;
+        transition: var(--transition);
+    }
+    .nav__menu li a {
+        place-items: center;
+        font-size: 0.9rem;
+        display: grid;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        color: white;
+    }
+    .btn__menu {
+        display: inline-block;
+        font-size: 1.8rem;
+        align-items: center;
+        color: var(--color-bg);
+        margin-top: 6px;
+    }
+    button {
+        cursor: pointer;
+    }
+    .header__container {
+        margin-top: 7rem;
+    }
+    .header__left h1 {
+        font-size: 1.6rem;
+    }
+    .header__left p {
+        font-size: 14px;
+    }
+    .header__left a {
+        font-size: 14px;
+    }
+    .header__right img {
+        max-width: 400px
+    }
+    .nav__menu.active {
+        transform: translateX(0);
+    }
+    .nav__menu.active {
+        right: 0;
+        animation: fadeInRight 0.5s ease-in;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        width: 100%;
+        margin: 0;
+    }
+    .container {
+        width: var(--container-width-sm);
+    }
+    .header__container {
+        margin-top: 8rem;
+    }
+    .header__right img {
+        width: 300px;
+    }
+    .header__left h1 {
+        font-size: 1.4rem;
+    }
+    .header__left p {
+        font-size: 13px;
+    }
+    .nav__container h4 {
+        font-size: 1.2rem
+    }
+    .btn {
+        padding: 10px 15px
+    }
+    /* ----------------CONTROLL LED------------- */
+    .room__content {
+        height: 100px;
+    }
+    .room__title h4 {
+        font-size: 0.9rem;
+    }
+    .room__title .btnOn,
+    .room__title .btnOff {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+    .room__content .led__img img {
+        width: 60px;
+        height: 60px;
+    }
+    .status__led th,
+    .status__led td {
+        font-size: 0.9rem;
+    }
+    /* -----------------HUMIDITY AND TEMPARETURE--------- */
+    th,
+    td {
+        font-size: 0.8rem;
+    }
+    /* -------------------GAS-------------- */
+    .status__gas th,
+    .status__gas th td {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    nav {
+        width: 100%;
+        margin: 0;
+    }
+    .container {
+        width: var(--container-width-sm);
+    }
+    .nav__container h4 {
+        font-size: 1rem;
+        /* color: white; */
+        /* margin-left: 3rem; */
+    }
+    .header__container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .header__left h1 {
+        font-size: 1.2rem;
+    }
+    .header__right img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* ---------------------CONTROL LED------------ */
+    .led__top {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+    }
+    .led__room {
+        width: 100%;
+    }
+    .room__title h4 {
+        font-size: 0.7rem;
+    }
+    .room__title .btnOn,
+    .room__title .btnOff {
+        font-size: 0.6rem;
+        padding: 4px;
+    }
+    .led__middle {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .led__middle .led__room {
+        flex: 1;
+    }
+    /* -------------------------HUMIDITY AND TEMPARETURE--------------- */
+    .status__gas {
+        margin-top: 1rem;
+    }
+    .status__gas th,
+    td {
+        font-size: 0.6rem;
+        padding: 8px;
+    }
+    .humidity h4 {
+        font-size: 0.9rem;
+    }
+    .status__gas,
+    th,
+    .status__gas td {
+        font-size: 0.7rem;
+        padding: 8px;
+    }
+    .gas h4 {
+        font-size: 0.9rem;
+    }
+}

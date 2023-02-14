@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ------------ION ICON ----------- -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/b0c50d5f49.js" crossorigin="anonymous"></script>
+
+
+    <!-- --------GOOGLE FONTS---------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Sign up</title>
+</head>
+
+<body>
+    <script>
+        checkUser = () => {}
+        checkPass = () => {}
+        checkRePass = () => {}
+        openBtn = () => {}
+        signUp = () => {}
+    </script>
+
+    <script type="module">
+        if(window.sessionStorage.getItem("user") != null) {
+            window.location.href = "/";
+            document.getElementById("userLogin").style.display="contents";
+            document.getElementById("displayLoginLink").style.display="none";
+
+        }
+
+
+        checkUser = () => {
+            var regex = /^[A-z_](\w|\.|_){5,24}$/;
+            var username = document.getElementById("txt-input").value
+
+            if(regex.test(username) == false) {
+                document.getElementById("check_username").innerHTML = "From 6 to 24 characters, begin with a character";
+                return false;
+            } else {
+                document.getElementById("check_username").innerHTML = ""; 
+                return true;
+            }
+        }
+
+        checkPass = () => {
+            var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+            var password = document.getElementById("pwd").value;
+            if (regex.test(password) == false) {
+                document.getElementById("check_pw").innerHTML = "Atlest 6 characters include number and character";
+                return false;
+            } else{
+                document.getElementById("check_pw").innerHTML = "";
+                return true;
+            }
+        }
+
+        checkRePass = () => {
+            var password = document.getElementById("pwd").value;
+            var rePass = document.getElementById("rePwd").value;
+            if (password == rePass) {
+                document.getElementById("check_repw").innerHTML = "";
+                return true;
+            } else {
+                document.getElementById("check_repw").innerHTML = "Password is dissimilar";
+                return false;
+            }
+        }
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, set } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBqkX6_iG60ijhP8ugTv9KTsE1n3Yj5b7A",
+          authDomain: "graduationproject-391b2.firebaseapp.com",
+          databaseURL: "https://graduationproject-391b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "graduationproject-391b2",
+          storageBucket: "graduationproject-391b2.appspot.com",
+          messagingSenderId: "938688812975",
+          appId: "1:938688812975:web:3f40409d583224003c815a",
+          measurementId: "G-434FM5Y3FN"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const database = getDatabase(app);
+        const dataRef = query(ref(database, 'users'));
+        signUp = () => {
+            let username = document.getElementById("txt-input").value;
+            let password = document.getElementById("pwd").value;
+            if(checkUser() && checkPass() && checkRePass()) {
+                let checkExist = false;
+                onValue(dataRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        if(childSnapshot.key == username) {
+                            checkExist = true;
+                        }
+                        console.log(checkExist);
+                    });
+                    console.log(snapshot.val());
+                });
+
+
+                if(checkExist) {
+                        alert("Username already exists, enter it click Check again");
+                    }
+                    else {
+                        set(ref(database, 'users/' + username), {
+                            'password': password,
+                        }).
+                        then(()=> {
+                            alert("Sign in successful");
+                            window.location.href = "login";
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                    }
+            }
+            else {
+                alert("Retype Username and Password")
+            }
+        }
+
+    </script>
+
+    <nav>
+        <div class="container nav__container">
+            <a href="index.html">
+                <h4>SMARTHOME</h4>
+            </a>
+            <ul class="nav__menu">
+                <li><a href="index">Home</a></li>
+                <li><a href="control">Control Leds</a></li>
+                <li><a href="humidity_temperature">Humidity and Temperature data</a></li>
+                <li><a href="gas">Gas data</a></li>
+            </ul>
+
+            <div class="nav__login">
+                <a href="login" id="displayLoginLink">
+                    <h4>Login</h4>
+                </a>
+                <button class="btn__menu">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="btn-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+
+    </nav>
+    <div class="form__login">
+        <div class="overlay">
+            <!-- LOGN IN FORM by Omar Dsoky -->
+            <form method="post">
+                <!--   con = Container  for items in the form-->
+                <div class="con">
+                    <!--     Start  header Content  -->
+                    <header class="head-form">
+                        <h2>Sign Up</h2>
+                        <!--     A welcome message or an explanation of the login form -->
+                        <p>Sign up here typing your username and password</p>
+                    </header>
+                    <!--     End  header Content  -->
+                    <br>
+                    <div class="field-set">
+
+                        <!--   user name -->
+                        <span class="input-item">
+                            <i class="fa fa-user-circle"></i>
+                        </span>
+                        <!--   user name Input-->
+                        <input class="form-input" id="txt-input" type="text" placeholder="UserName" onchange="checkUser()" required>
+                        <p style="font-size: 12px; color: red;"><span id="check_username"></span></p>
+                        <br>
+
+                        <!--   Password -->
+
+                        <span class="input-item"><i class="fa fa-key"></i></span>
+                        <input class="form-input" type="password" placeholder="Password" id="pwd" name="password" onchange="checkPass()" required>
+                        <p style="font-size: 12px; color: red;"><span id="check_pw"></span></p>
+                        <br>
+
+                        <span class="input-item"><i class="fa fa-key"></i></span>
+                        <input class="form-input" type="password" placeholder="Retype Password" id="rePwd" name="rePassword" onchange="checkRePass()" required>
+                        <p style="font-size: 12px; color: red;"><span id="check_repw"></span></p>
+                        <br>
+
+                        <!--        buttons -->
+
+                        <button type="button" id="btn_submit" class="log-in" onclick="signUp()"> Sign up </button>
+
+                        <!-- <div class="form-group text-center">
+                            <button class="btn btn-block btn-social btn-google" id="btnGoogle" type="button"> <span class="fa fa-google"></span>Login with Google</button>
+                        </div> -->
+
+                    </div>
+
+                    <!--   other buttons -->
+                    <div class="other">
+                        <button class="btn submits frgt-pass"><a href="/">Cancer</a></button>
+                        <button type="button" class="btn submits sign-up"><a href="login">Login <i class="fa fa-user"></i></a></button>
+                    </div>
+
+                    <!--   End Conrainer  -->
+                </div>
+
+                <!-- End Form -->
+            </form>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+
+    <!-- ----link copy--- -->
+    <!-- https://codepen.io/linux/pen/LLVaqx -->
+</body>
+
+</html>

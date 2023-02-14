@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ------------ION ICON ----------- -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- --------GOOGLE FONTS---------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ---------LINK CSS----- -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/control.css">
+    <title>Control Leds</title>
+</head>
+
+<body>
+    <script>
+        logout = () => {};
+    </script>
+    <script type="module">
+        if(window.sessionStorage.getItem("user") != null) {
+            // window.location.href = "/";
+            document.getElementById("userLogin").style.display="contents";
+            document.getElementById("displayLoginLink").style.display="none";
+            document.getElementById("username").innerHTML = window.sessionStorage.getItem("user");
+
+        }
+        else {
+            window.location.href = "login";
+            document.getElementById("userLogin").style.display="none";
+            document.getElementById("displayLoginLink").style.display="block";
+            
+        }
+
+        logout = () => {
+            sessionStorage.clear();
+            location.reload();
+        }
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue, query, update } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBqkX6_iG60ijhP8ugTv9KTsE1n3Yj5b7A",
+          authDomain: "graduationproject-391b2.firebaseapp.com",
+          databaseURL: "https://graduationproject-391b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "graduationproject-391b2",
+          storageBucket: "graduationproject-391b2.appspot.com",
+          messagingSenderId: "938688812975",
+          appId: "1:938688812975:web:3f40409d583224003c815a",
+          measurementId: "G-434FM5Y3FN"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        function formaterDate(s) {
+            var parts = s.split(':');
+            return parts[3] + ':' + parts[4] + ' ' + parts[2] + '/' + parts[1] + '/' + parts[0]; 
+        }
+
+        const database = getDatabase(app);
+        onValue(ref(database, 'livingroom'), (snapshot) => {
+            var tableData = "";
+            tableData = "<tr>" +
+                "<td style=\"text-align:center\">Living Room</td>" +
+                "<td style=\"text-align:center\">" + (snapshot.val().light.status) + "</td>" +
+                "<td style=\"text-align:center\">" + (snapshot.val().fan.status) + "</td>" +
+                "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.laston) + "</td>" +
+                "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.laston) + "</td>" +
+                "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.lastoff) + "</td>" +
+                "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.lastoff) + "</td>" +
+                "</td>";
+
+            onValue(ref(database, 'bedroom'), (snapshot) => {
+                tableData += "<tr>" +
+                    "<td style=\"text-align:center\">Bedroom</td>" +
+                    "<td style=\"text-align:center\">" + (snapshot.val().light.status) + "</td>" +
+                    "<td style=\"text-align:center\">" + (snapshot.val().fan.status) + "</td>" +
+                    "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.laston) + "</td>" +
+                    "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.laston) + "</td>" +
+                    "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.lastoff) + "</td>" +
+                    "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.lastoff) + "</td>" +
+                    "</td>";
+                onValue(ref(database, 'kitchen'), (snapshot) => {
+                    tableData += "<tr>" +
+                        "<td style=\"text-align:center\">Kitchen</td>" +
+                        "<td style=\"text-align:center\">" + (snapshot.val().light.status) + "</td>" +
+                        "<td style=\"text-align:center\">" + (snapshot.val().fan.status) + "</td>" +
+                        "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.laston) + "</td>" +
+                        "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.laston) + "</td>" +
+                        "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.lastoff) + "</td>" +
+                        "<td style=\"text-align:center\">" + formaterDate(snapshot.val().fan.lastoff) + "</td>" +
+                        "</td>";
+                    onValue(ref(database, 'toilet'), (snapshot) => {
+                        tableData += "<tr>" +
+                            "<td style=\"text-align:center\">Toilet</td>" +
+                            "<td style=\"text-align:center\">" + (snapshot.val().light.status) + "</td>" +
+                            "<td style=\"text-align:center\"></td>" +
+                            "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.laston) + "</td>" +
+                            "<td style=\"text-align:center\"></td>" +
+                            "<td style=\"text-align:center\">" + formaterDate(snapshot.val().light.lastoff) + "</td>" +
+                            "<td style=\"text-align:center\"></td>" +
+                            "</td>";
+
+                        document.getElementById("tableStatus").innerHTML = 
+                            "<table>" + 
+                                "<tr>" +
+                                    "<th style=\"text-align:center\">Room Name</th>" +
+                                    "<th style=\"text-align:center\">Light Status</th>" +
+                                    "<th style=\"text-align:center\">Fan Status</th>" +
+                                    "<th style=\"text-align:center\">Light Last Time On</th>" +
+                                    "<th style=\"text-align:center\">Fan Last Time On</th>" +
+                                    "<th style=\"text-align:center\">Light Last Time Off</th>" +
+                                    "<th style=\"text-align:center\">Fan Last Time Off</th>" +
+                                "</tr>" + tableData +
+                            "</table>";
+                            tableData = "";
+                        
+                    });
+                });
+            });
+        });
+
+        controlFunc = (room, device, status) => {
+            var now = new Date();
+            var current = now.getFullYear() + ':' + now.getMonth() + ':' + now.getDate() + ':' + now.getHours() + ':' + now.getMinutes();
+            console.log(current);
+            var path = room + '/' + device ;
+            // var paths = room;
+            // var device_status = device+'_status';
+            if(status == 'on') {
+                // update(ref(database, paths), {device_status: 'true'});
+                update(ref(database, path), {'status': 'true', 'laston': current});
+                location.reload();
+            }
+            else {
+                // update(ref(database, paths), {device_status: 'false'});
+                update(ref(database, path), {'status': 'false', 'lastoff': current});
+                location.reload();
+            }
+        }
+
+
+    </script>
+
+    <script>
+        controlFunc = () => {}
+    </script>
+
+    <!-- --------------NAV MENU------------ -->
+    <nav>
+        <div class=" nav__container">
+            <a href="index.html">
+                <h4>SMARTHOME</h4>
+            </a>
+            <ul class="nav__menu">
+                <li><a href="index">Home</a></li>
+                <li><a href="control">Control Leds</a></li>
+                <li><a href="humidity_temperature">Humidity and Temperature data</a></li>
+                <li><a href="gas">Gas data</a></li>
+            </ul>
+
+            <div class="nav__login">
+                <div id="userLogin">
+                    <div class="avata">
+                        <img src="img/10.jpg">
+                    </div>
+                    <div class="title__login">
+                        <div class="title" style="font-size: 1.2rem; ">
+                            <h5 id="username"></h5>
+                        </div>
+                        <div class="sub__title" style="font-size: 0.9rem; opacity: 0.5; font-weight:normal; ">
+                            Administrator
+                        </div>
+                    </div>
+                    <div class="dropdown-content">
+                        <button style="    display: inline-block;
+                        color: #252537;
+                        width: 280px;
+                        height: 50px;
+                        padding: 0 20px;
+                        background: #fff;
+                        border-radius: 5px;
+                        outline: none;
+                        border: none;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: all 0.2s linear;
+                        margin: 7% auto;
+                        letter-spacing: 0.05em;" onclick="logout()">Log out</button>
+                    </div>
+                </div>
+                <a href="login" id="displayLoginLink">
+                    <h4>Login</h4>
+                </a>
+                <button class="btn__menu">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </button>
+                <button class="btn-close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- ------------------CONTROL LEDS-------------------- -->
+    <section class="controllLed">
+        <div class="container led__container">
+            <div class="led__top">
+                <div class="led__room">
+                    <div class="room__content">
+                        <div class="control_led">
+                            <div class="room__title">
+                                <h4>LIVING ROOM</h4>
+                                <button class="btnOn" onclick="controlFunc('livingroom', 'light', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('livingroom', 'light', 'off')">OFF</button>
+                            </div>
+                            <div class=" led__img ">
+                                <img src="/img/led-bulb.png ">
+                            </div>
+                        </div>
+                        
+                        <div class="control_fan ">
+                            <div class="room__title ">
+                                <button class="btnOn" onclick="controlFunc('livingroom', 'fan', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('livingroom', 'fan', 'off')">OFF</button>
+                            </div>
+                            <div class="fan__img ">
+                                <img src="/img/fan.png ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="led__room ">
+                    <div class="room__content ">
+                        <div class="control_led ">
+                            <div class="room__title ">
+                                <h4>BED ROOM</h4>
+                                <button class="btnOn" onclick="controlFunc('bedroom', 'light', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('bedroom', 'light', 'off')">OFF</button>
+                            </div>
+                            <div class="led__img ">
+                                <img src="/img/led-bulb.png ">
+                            </div>
+                        </div>
+
+                        <div class="control_fan ">
+                            <div class="room__title ">
+                                <button class="btnOn" onclick="controlFunc('bedroom', 'fan', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('bedroom', 'fan', 'off')">OFF</button>
+                            </div>
+                            <div class="fan__img ">
+                                <img src="/img/fan.png ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="led__middle ">
+                <div class="led__room ">
+                    <div class="room__content ">
+                        <div class="control_led ">
+                            <div class="room__title ">
+                                <h4>KITCHEN ROOM</h4>
+                                <button class="btnOn" onclick="controlFunc('kitchen', 'light', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('kitchen', 'light', 'off')">OFF</button>
+                            </div>
+                            <div class="led__img ">
+                                <img src="/img/led-bulb.png ">
+                            </div>
+                        </div>
+                        <div class="control_fan ">
+                            <div class="room__title ">
+                                <button class="btnOn" onclick="controlFunc('kitchen', 'fan', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('kitchen', 'fan', 'off')">OFF</button>
+                            </div>
+                            <div class="fan__img ">
+                                <img src="/img/fan.png ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="led__room ">
+                    <div class="room__content ">
+                        <div class="control_led ">
+                            <div class="room__title ">
+                                <h4>TOILET ROOM</h4>
+                                <button class="btnOn" onclick="controlFunc('toilet', 'light', 'on')">ON</button>
+                                <button class="btnOff" onclick="controlFunc('toilet', 'light', 'off')">OFF</button>
+                            </div>
+                            <div class="led__img ">
+                                <img src="/img/led-bulb.png ">
+                            </div>
+                        </div>
+                        <!-- <div class="control_fan ">
+                            <div class="room__title ">
+                                <button class="btnOn ">ON</button>
+                                <button class="btnOff ">OFF</button>
+                            </div>
+                            <div class="fan__img ">
+                                <img src="/img/fan.png ">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================STATUS LED ===================== -->
+            <div class="status__led ">
+                <div id="tableStatus">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ---LINK SCRIPT------- -->
+    <script src="js/index.js "></script>
+
+</body>
+
+</html>
