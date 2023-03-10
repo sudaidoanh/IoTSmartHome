@@ -8,3 +8,5 @@ Technology used:<br>
   - Java with Android Studio for android application <br>
   - Python for raspberry programming and machine learning <br>
   - Firebase cloud for hosting and NoSQL realtime database
+
+Our project got band A
