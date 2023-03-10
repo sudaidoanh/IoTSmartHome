@@ -8,5 +8,5 @@ Technology used:<br>
   - Java with Android Studio for android application <br>
   - Python for raspberry programming and machine learning <br>
   - Firebase cloud for hosting and NoSQL realtime database
-
+<h4> Webhost: https://graduationproject-391b2.web.app/ username: doanh1, password: doanh1</h4>
 Our project got band A
